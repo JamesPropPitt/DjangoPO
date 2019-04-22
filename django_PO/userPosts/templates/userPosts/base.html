@@ -8,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type ="text/css" href="{% static 'userPosts/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'userPosts/main.css' %}">
         {% if title %}
         <title>
             Django Home page - {{ title }}
@@ -36,10 +36,13 @@
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
                     {% if user.is_authenticated %}
-                    <a class="navbar-brand mr-4" href="{% url 'profile' %}">Welcome, {{ user.username }}</a>
+                    <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
+                    <a class="nav-item nav-link" href="{% url 'profile' %}">Welcome, {{ user.username }}</a>
                     <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
                     {% else %}
                   <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                    <!-- This line, and all the other similar lines gather information from urls.py and uses that information to correctly display information on the relevant page. In this instance,
+                    it uses Django's in built login feature to display the login page -->
                     {% endif %}
                 </div>
               </div>
@@ -47,7 +50,7 @@
           </nav>
         </header>
 
-
+    <!-- This is the main content of the page which gets replaced depending on which page is loaded. This is where the page points to when using 'extends "userPosts/base.html"' -->
     <main role="main" class="container">
       <div class="row">
         <div class="col-md-8">
