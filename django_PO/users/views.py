@@ -2,7 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm, ProfileUpdateForm
-
+from django.template.response import TemplateResponse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from .models import *
 
 def register(request):
     if request.method == 'POST':
@@ -42,3 +45,10 @@ def profile(request):
 
     # Creating a context is a dictionary of keys which in this case are u_form and p_form; userupdate and profileupdate.
 
+@login_required
+def index(request):
+    group = request.user.groups.order_by('name').first()
+    if group:
+        return redirect('groups_show',group.name)
+    else:
+        return TemplateResponse(request,'userPosts/logout.html')
